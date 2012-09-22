@@ -75,7 +75,7 @@ PS.Click = function (x, y, data)
 		}
 		
 		var strength = data.power;
-		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) && x != GLOBALS.boardHeight )
+		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) && y != GLOBALS.boardHeight )
 		{
 			if (strength > 1)
 			{
@@ -227,14 +227,13 @@ function makeAttack(att_x, att_y, def_x, def_y) {
   defending_zone.attackWith(attacking_zone);
 }
 
-function nextTurn() {
+function nextTurn(no_reinforce) {
 	var lastTurnPlayer = GLOBALS.currentPlayer++;
 
 	if (GLOBALS.currentPlayer > 3) {
 		GLOBALS.currentPlayer = 0;
 	}
 
-	
 	if (GLOBALS.select != null) {
 		PS.BeadBorderWidth(GLOBALS.select.x, GLOBALS.select.y, 1);
 		PS.BeadBorderColor(GLOBALS.select.x, GLOBALS.select.y, PS.COLOR_GRAY);
@@ -243,7 +242,13 @@ function nextTurn() {
 
 	PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]); 
 
-  giveReinforcements(GLOBALS.PLAYERS_ORDERED[lastTurnPlayer]);
+  if (gameboard.getPlayerTiles(GLOBALS.PLAYERS_ORDERED[GLOBALS.currentPlayer]).length == 0) {
+    nextTurn(true);
+  }
+
+  if (!no_reinforce) {
+    giveReinforcements(GLOBALS.PLAYERS_ORDERED[lastTurnPlayer]);
+  }
 }
 
 function giveReinforcements(player) {
