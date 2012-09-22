@@ -4,19 +4,17 @@ Array.prototype.randomElement = function () {
 
 PLAYERS = {
   NIL:    '',
-  BLUE:   'Blue',
   RED:    'Red',
-  YELLOW: 'Yellow',
-  GREEN:  'Green'
+  BLUE:   'Blue',
+  GREEN:  'Green',
+  VIOLET: 'Violet'
 }
 
-PLAYER_IDs = {}
-PLAYER_IDs[PLAYERS.BLUE] = 0
-PLAYER_IDs[PLAYERS.RED] = 1
-PLAYER_IDs[PLAYERS.YELLOW] = 2
-PLAYER_IDs[PLAYERS.GREEN] = 3
-
-var theTeamColors = [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET];
+PLAYER_IDs = {};
+PLAYER_IDs[PLAYERS.RED]    = 0;
+PLAYER_IDs[PLAYERS.BLUE]   = 1;
+PLAYER_IDs[PLAYERS.GREEN]  = 2;
+PLAYER_IDs[PLAYERS.VIOLET] = 3;
 
 /*
  * =====================
@@ -83,7 +81,7 @@ var Zone = Klass.extend({
   },
 
   updateView: function() {
-		PS.BeadColor(this.x, this.y, theTeamColors[this.teamColorIndex()]);
+		PS.BeadColor(this.x, this.y, GLOBALS.teamColors[this.teamColorIndex()]);
 		PS.BeadGlyphColor(this.x, this.y, PS.COLOR_BLACK);
     var unitStrengthStrings = ['1','1','2','3'];
 		PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
