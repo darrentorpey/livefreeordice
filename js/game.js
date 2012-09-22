@@ -26,6 +26,7 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 
 /*global PS */
 
+
 // PS.Init ()
 // Initializes the game
 // This function normally includes a call to PS.GridSize (x, y)
@@ -35,7 +36,7 @@ window.GLOBALS = {
   boardWidth : 8,
   currentPlayer : 0,
   MAX_ZONE_POWER: 9,
-  teamColors : [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET],
+  teamColors : [PS.COLOR_RED, 0x5599FF, PS.COLOR_GREEN, 0xFFAA55],
   PLAYERS_ORDERED : [PLAYERS.RED, PLAYERS.BLUE, PLAYERS.GREEN, PLAYERS.VIOLET]
 };
 

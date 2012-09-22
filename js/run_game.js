@@ -24,9 +24,6 @@ function game_code_test() {
 
 function initializeRandomBoard() {
 
-	//Generate team colors
-	var teamColors = [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET];
-	
 	//Generate a list of a strengths of units {1,1,2,3,...}
 	var unitStrengths = [1,1,2,3];
 	var unitStrengthStrings = ['1','1','2','3'];
@@ -55,7 +52,7 @@ function initializeRandomBoard() {
 	for (var i = 0; i < numberOfTiles; i++) {
 		var x = boardPositions[i].x;
 		var y = boardPositions[i].y;
-		PS.BeadColor(x, y, teamColors[colorIndex]);
+		PS.BeadColor(x, y, GLOBALS.teamColors[colorIndex]);
 		PS.BeadGlyphColor(x, y, PS.COLOR_BLACK);
 		PS.BeadGlyph(x,y,unitStrengthStrings[strengthIndex]);
 
@@ -79,5 +76,5 @@ function initializeRandomBoard() {
 		PS.BeadData(i, GLOBALS.boardHeight, {});
 	}
 	//Current player bead
-	PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]);
+	PS.BeadColor(0, GLOBALS.boardHeight, GLOBALS.teamColors[GLOBALS.currentPlayer]);
 }
