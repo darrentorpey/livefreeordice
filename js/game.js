@@ -102,13 +102,7 @@ PS.Click = function (x, y, data)
 				}
 			}
 		}
-	}
-	//If current player == current color of bead && strength > 1
-		//select square
-	//If square selected && enemy square
-		//Is adjacent
-			//Attack
-	
+	}	
 };
 
 // PS.Release (x, y, data)
