@@ -86,7 +86,7 @@ function initializeRandomBoard() {
 		PS.BeadColor(x, y, teamColors[colorIndex]);
 		PS.BeadGlyphColor(x, y, PS.COLOR_BLACK);
 		PS.BeadGlyph(x,y,unitStrengthStrings[strengthIndex]);
-		var data = PS.BeadData(x, y);
+		var data = {};
 		data.strength = unitStrengths[strengthIndex];
 		PS.BeadData(x, y, data);
 			
@@ -115,7 +115,7 @@ PS.Click = function (x, y, data)
 	if (data != 0)
 	{
 		var strength = data.strength;
-		if (GLOBALS.teamColors[currentPlayer] == PS.BeadColor(x,y) )
+		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) )
 		{
 			if (strength > 1)
 			{
