@@ -68,6 +68,7 @@ var Zone = Klass.extend({
       this.processInvasion(attacker);
     } else {
       notice('Defender wins!');
+      this.processFailedAttack(attacker);
     }
     debug('Attacker: ' + attacker.quickview());
     debug('Defender: ' + this.quickview());
@@ -78,13 +79,21 @@ var Zone = Klass.extend({
     this.power = attacker.power - 1;
     attacker.power = 1;
     this.updateView();
+    attacker.updateView();
+  },
+
+  processFailedAttack: function(attacker) {
+    attacker.power = 1;
+    this.updateView();
+    attacker.updateView();
   },
 
   updateView: function() {
 		PS.BeadColor(this.x, this.y, GLOBALS.teamColors[this.teamColorIndex()]);
 		PS.BeadGlyphColor(this.x, this.y, PS.COLOR_BLACK);
     var unitStrengthStrings = ['1','1','2','3'];
-		PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
+    // PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
+		PS.BeadGlyph(this.x, this.y, this.power.toString());
   },
 
   teamColorIndex: function() {

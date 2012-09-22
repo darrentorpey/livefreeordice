@@ -66,7 +66,7 @@ PS.Click = function (x, y, data)
 	
 	if (data != 0)
 	{
-		var strength = data.strength;
+		var strength = data.power;
 		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) )
 		{
 			if (strength > 1)
@@ -203,3 +203,10 @@ PS.Tick = function ()
 
 	// Put code here to handle clock ticks
 };
+
+function makeAttack(att_x, att_y, def_x, def_y) {
+  var attacking_zone = PS.BeadData(att_x, att_y);
+  var defending_zone = PS.BeadData(def_x, def_y);
+
+  defending_zone.attackWith(attacking_zone);
+}
