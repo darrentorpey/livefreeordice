@@ -56,6 +56,7 @@ function initializeRandomBoard() {
 		PS.BeadColor(x, y, teamColors[colorIndex]);
 		PS.BeadGlyphColor(x, y, PS.COLOR_BLACK);
 		PS.BeadGlyph(x,y,unitStrengthStrings[strengthIndex]);
+
     // var data = PS.BeadData(x, y);
     // data.strength = unitStrengths[strengthIndex];
 		PS.BeadData(x, y, new Zone({ x: x, y: y, power: unitStrengths[strengthIndex], owner: GLOBALS.PLAYERS_ORDERED[colorIndex] }));

@@ -52,6 +52,7 @@ PS.Init = function ()
     // Put any other init code here
 };
 
+
 // PS.Click (x, y, data)
 // This function is called whenever a bead is clicked
 // It doesn't have to do anything
@@ -66,7 +67,7 @@ PS.Click = function (x, y, data)
 	if (data != 0)
 	{
 		var strength = data.strength;
-		if (GLOBALS.teamColors[currentPlayer] == PS.BeadColor(x,y) )
+		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) )
 		{
 			if (strength > 1)
 			{
@@ -90,25 +91,19 @@ PS.Click = function (x, y, data)
 				{
 					if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
 					{
-						//ATTACK
+						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
 					}
 				}
 				if (GLOBALS.select.y == y)
 				{
 					if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
 					{
-						//ATTACK
+						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
 					}
 				}
 			}
 		}
-	}
-	//If current player == current color of bead && strength > 1
-		//select square
-	//If square selected && enemy square
-		//Is adjacent
-			//Attack
-	
+	}	
 };
 
 // PS.Release (x, y, data)
