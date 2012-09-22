@@ -92,7 +92,6 @@ var Zone = Klass.extend({
 		PS.BeadColor(this.x, this.y, GLOBALS.teamColors[this.teamColorIndex()]);
 		PS.BeadGlyphColor(this.x, this.y, PS.COLOR_BLACK);
     var unitStrengthStrings = ['1','1','2','3'];
-    // PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
 		PS.BeadGlyph(this.x, this.y, this.power.toString());
   },
 
@@ -118,6 +117,32 @@ var Zone = Klass.extend({
     return totalRoll;
   }
 });
+
+var GameBoard = Klass.extend({
+  init: function(params) {
+    _.defaults(params, {
+    })
+
+    this.tile_width  = params.width;
+    this.tile_height = params.height;
+  },
+
+  // Get all of a player's tiles
+  // player: a PLAYERS constant
+  getPlayerTiles: function(player) {
+    var zones = [];
+    for (var x = 0; x < this.tile_width; x++) {
+      for (var y = 0; y < this.tile_height; y++) {
+        var zone = PS.BeadData(x, y);
+        if (zone.owner == player) {
+          zones.push(zone);
+        }
+      }
+    }
+    return zones;
+  }
+});
+
 
 notices_on     = true;
 full_debugging = true;
