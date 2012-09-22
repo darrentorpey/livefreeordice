@@ -32,7 +32,9 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 // where x and y are the desired dimensions of the grid
 var GLOBALS = {
 	boardHeight : 4,
-	boardWidth : 8
+	boardWidth : 8,
+	currentPlayer : 0,
+	teamColors : [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET]
 };
 
 PS.Init = function ()
@@ -55,8 +57,8 @@ function initializeRandomBoard() {
 	var teamColors = [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET];
 	
 	//Generate a list of a strengths of units {1,1,2,3,...}
-	var unitStrengths = [1,1,2,3];
-	var unitStrengthStrings = ['1','1','2','3'];
+	var unitStrengths = [5,3,2,1];
+	var unitStrengthStrings = ['5','3','2','1'];
 	
 	//Generate a list of all board positions
 	var boardPositions = [];
@@ -108,10 +110,54 @@ function initializeRandomBoard() {
 
 PS.Click = function (x, y, data)
 {
-	
 	"use strict";
 	
-	// put code here for bead clicks
+	if (data != 0)
+	{
+		var strength = data.strength;
+		if (GLOBALS.teamColors[currentPlayer] == PS.BeadColor(x,y) )
+		{
+			if (strength > 1)
+			{
+				//Deselect current
+				if (GLOBALS.select != null)
+				{
+					PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+					PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+				}
+				
+				//Select
+				GLOBALS.select = {x:x,y:y};
+				PS.BeadBorderWidth(x,y,2);
+				PS.BeadBorderColor(x,y,PS.COLOR_WHITE);
+			}
+		} else {
+			//Enemy square
+			if (GLOBALS.select != null)
+			{
+				if (GLOBALS.select.x == x)
+				{
+					if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
+					{
+						//ATTACK
+					}
+				}
+				if (GLOBALS.select.y == y)
+				{
+					if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
+					{
+						//ATTACK
+					}
+				}
+			}
+		}
+	}
+	//If current player == current color of bead && strength > 1
+		//select square
+	//If square selected && enemy square
+		//Is adjacent
+			//Attack
+	
 };
 
 // PS.Release (x, y, data)
