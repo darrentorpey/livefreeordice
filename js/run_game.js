@@ -76,4 +76,6 @@ function initializeRandomBoard() {
 		PS.BeadColor(i, GLOBALS.boardHeight, PS.COLOR_BLACK);
 		PS.BeadData(i, GLOBALS.boardHeight, {});
 	}
+	//Current player bead
+	PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]);
 }

@@ -80,10 +80,12 @@ PS.Click = function (x, y, data)
 				PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
 				GLOBALS.select = null;
 			}
+				
+			PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]);
 		}
 		
 		var strength = data.power;
-		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) )
+		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) && x != GLOBALS.boardHeight )
 		{
 			if (strength > 1)
 			{
