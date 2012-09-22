@@ -72,4 +72,10 @@ function initializeRandomBoard() {
 			}
 		}
 	}
+	
+	for (var i = 0; i < GLOBALS.boardWidth; i++)
+	{
+		PS.BeadColor(i, GLOBALS.boardHeight, PS.COLOR_BLACK);
+		PS.BeadData(i, GLOBALS.boardHeight, {});
+	}
 }

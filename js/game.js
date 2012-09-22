@@ -44,7 +44,7 @@ PS.Init = function ()
 
 	// change to the dimensions you want
 
-	PS.GridSize ( GLOBALS.boardWidth, GLOBALS.boardHeight ); 
+	PS.GridSize ( GLOBALS.boardWidth, GLOBALS.boardHeight + 1 ); 
 	PS.GridBGColor(PS.COLOR_WHITE);
 	
 	initializeRandomBoard();
@@ -66,6 +66,22 @@ PS.Click = function (x, y, data)
 	
 	if (data != 0)
 	{
+		if (PS.BeadColor(x,y) == PS.COLOR_BLACK)
+		{
+			//Next turn
+			GLOBALS.currentPlayer++;
+			if (GLOBALS.currentPlayer > 3)
+			{
+				GLOBALS.currentPlayer = 0;
+			}
+			if (GLOBALS.select != null)
+			{
+				PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+				PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+				GLOBALS.select = null;
+			}
+		}
+		
 		var strength = data.power;
 		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) )
 		{
@@ -83,7 +99,9 @@ PS.Click = function (x, y, data)
 				PS.BeadBorderWidth(x,y,2);
 				PS.BeadBorderColor(x,y,PS.COLOR_WHITE);
 			}
-		} else {
+		}
+		else
+		{
 			//Enemy square
 			if (GLOBALS.select != null)
 			{
@@ -92,13 +110,19 @@ PS.Click = function (x, y, data)
 					if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
 					{
 						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
+						PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+						PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+						GLOBALS.select = null;
 					}
 				}
-				if (GLOBALS.select.y == y)
+				else if (GLOBALS.select.y == y)
 				{
 					if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
 					{
 						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
+						PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+						PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+						GLOBALS.select = null;
 					}
 				}
 			}
