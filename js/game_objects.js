@@ -2,14 +2,19 @@ Array.prototype.randomElement = function () {
     return this[Math.floor(Math.random() * this.length)]
 }
 
-
 PLAYERS = {
   NIL:    '',
-  BLUE:   'Blue',
   RED:    'Red',
-  YELLOW: 'Yellow',
-  GREEN:  'Green'
+  BLUE:   'Blue',
+  GREEN:  'Green',
+  VIOLET: 'Violet'
 }
+
+PLAYER_IDs = {};
+PLAYER_IDs[PLAYERS.RED]    = 0;
+PLAYER_IDs[PLAYERS.BLUE]   = 1;
+PLAYER_IDs[PLAYERS.GREEN]  = 2;
+PLAYER_IDs[PLAYERS.VIOLET] = 3;
 
 /*
  * =====================
@@ -72,6 +77,18 @@ var Zone = Klass.extend({
     this.owner = attacker.owner;
     this.power = attacker.power - 1;
     attacker.power = 1;
+    this.updateView();
+  },
+
+  updateView: function() {
+		PS.BeadColor(this.x, this.y, GLOBALS.teamColors[this.teamColorIndex()]);
+		PS.BeadGlyphColor(this.x, this.y, PS.COLOR_BLACK);
+    var unitStrengthStrings = ['1','1','2','3'];
+		PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
+  },
+
+  teamColorIndex: function() {
+    return PLAYER_IDs[this.owner];
   },
 
   rollUp: function() {

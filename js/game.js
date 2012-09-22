@@ -51,55 +51,6 @@ PS.Init = function ()
     // Put any other init code here
 };
 
-function initializeRandomBoard() {
-	
-	//Generate team colors
-	var teamColors = [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET];
-	
-	//Generate a list of a strengths of units {1,1,2,3,...}
-	var unitStrengths = [5,3,2,1];
-	var unitStrengthStrings = ['5','3','2','1'];
-	
-	//Generate a list of all board positions
-	var boardPositions = [];
-	var counter = 0;
-	for (var i = 0 ; i < GLOBALS.boardHeight; i++)
-	{
-		for (var j = 0; j < GLOBALS.boardWidth; j++)
-		{
-			var num = i * GLOBALS.boardWidth + j;
-			boardPositions[num] = {x:j,y:i};
-		}
-	}
-	
-	//Scramble that list
-	boardPositions = _.shuffle(boardPositions);
-	
-	//Generate 4 teams with random areas
-	var numberOfTiles = GLOBALS.boardHeight * GLOBALS.boardWidth;
-	var strengthIndex = 0;
-	var colorIndex = 0;
-	for (var i = 0; i < numberOfTiles; i++)
-	{
-		var x = boardPositions[i].x;
-		var y = boardPositions[i].y;
-		PS.BeadColor(x, y, teamColors[colorIndex]);
-		PS.BeadGlyphColor(x, y, PS.COLOR_BLACK);
-		PS.BeadGlyph(x,y,unitStrengthStrings[strengthIndex]);
-		var data = {};
-		data.strength = unitStrengths[strengthIndex];
-		PS.BeadData(x, y, data);
-			
-		colorIndex++;
-		if (colorIndex > 3) {
-			colorIndex = 0;
-			strengthIndex++;
-			if (strengthIndex > 3) {
-				strengthIndex = 0;
-			}
-		}
-	}
-}
 
 // PS.Click (x, y, data)
 // This function is called whenever a bead is clicked
