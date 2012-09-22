@@ -46,6 +46,8 @@ function initializeRandomBoard() {
 	//Scramble that list
 	boardPositions = _.shuffle(boardPositions);
 
+  window.gameboard = new GameBoard({ width: GLOBALS.boardWidth, height: GLOBALS.boardHeight });
+
 	//Generate 4 teams with random areas
 	var numberOfTiles = GLOBALS.boardHeight * GLOBALS.boardWidth;
 	var strengthIndex = 0;

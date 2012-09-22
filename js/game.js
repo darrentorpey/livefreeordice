@@ -69,19 +69,9 @@ PS.Click = function (x, y, data)
 		if (PS.BeadColor(x,y) == PS.COLOR_BLACK)
 		{
 			//Next turn
-			GLOBALS.currentPlayer++;
-			if (GLOBALS.currentPlayer > 3)
-			{
-				GLOBALS.currentPlayer = 0;
-			}
-			if (GLOBALS.select != null)
-			{
-				PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
-				PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
-				GLOBALS.select = null;
-			}
-				
-			PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]);
+
+      notice('NEXT TURN');
+      nextTurn();
 		}
 		
 		var strength = data.power;
@@ -235,4 +225,46 @@ function makeAttack(att_x, att_y, def_x, def_y) {
   var defending_zone = PS.BeadData(def_x, def_y);
 
   defending_zone.attackWith(attacking_zone);
+}
+
+function nextTurn() {
+	var lastTurnPlayer = GLOBALS.currentPlayer++;
+
+	if (GLOBALS.currentPlayer > 3) {
+		GLOBALS.currentPlayer = 0;
+	}
+
+	
+	if (GLOBALS.select != null) {
+		PS.BeadBorderWidth(GLOBALS.select.x, GLOBALS.select.y, 1);
+		PS.BeadBorderColor(GLOBALS.select.x, GLOBALS.select.y, PS.COLOR_GRAY);
+		GLOBALS.select = null;
+	}
+
+	PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]); 
+
+  giveReinforcements(GLOBALS.PLAYERS_ORDERED[lastTurnPlayer]);
+}
+
+function giveReinforcements(player) {
+  var zones = gameboard.getPlayerTiles(player);
+  var forces_to_add = zones.length;
+  var forces_left_to_add = forces_to_add;
+
+  debug('Player ' + player + ' gets ' + forces_to_add + ' moar forces');
+  debug('forces_to_add: ' + forces_to_add);
+  debug('forces_left_to_add ' + forces_left_to_add);
+
+  while(forces_left_to_add > 0) {
+    var num_to_add = Math.min(forces_left_to_add, Math.ceil((Math.random() * forces_left_to_add)));
+
+    debug('Adding ' + num_to_add + ' forces to ___');
+
+    forces_left_to_add -= num_to_add;
+
+    var zone_to_reinforce = zones.randomElement();
+
+    zone_to_reinforce.power += num_to_add;
+    zone_to_reinforce.updateView();
+  }
 }
