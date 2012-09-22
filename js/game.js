@@ -90,14 +90,14 @@ PS.Click = function (x, y, data)
 				{
 					if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
 					{
-						//ATTACK
+						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
 					}
 				}
 				if (GLOBALS.select.y == y)
 				{
 					if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
 					{
-						//ATTACK
+						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
 					}
 				}
 			}
