@@ -143,9 +143,8 @@ var GameBoard = Klass.extend({
   }
 });
 
-
-notices_on     = true;
-full_debugging = true;
+notices_on     = false;
+full_debugging = false;
 
 notice = function(message) {
   if (notices_on) {

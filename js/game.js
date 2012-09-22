@@ -31,23 +31,24 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 // This function normally includes a call to PS.GridSize (x, y)
 // where x and y are the desired dimensions of the grid
 window.GLOBALS = {
-	boardHeight : 4,
-	boardWidth : 8,
-	currentPlayer : 0,
-	teamColors : [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET],
-	PLAYERS_ORDERED : [PLAYERS.RED, PLAYERS.BLUE, PLAYERS.GREEN, PLAYERS.VIOLET]
+  boardHeight : 4,
+  boardWidth : 8,
+  currentPlayer : 0,
+  MAX_ZONE_POWER: 9,
+  teamColors : [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET],
+  PLAYERS_ORDERED : [PLAYERS.RED, PLAYERS.BLUE, PLAYERS.GREEN, PLAYERS.VIOLET]
 };
 
 PS.Init = function ()
 {
-	"use strict";
+  "use strict";
 
-	// change to the dimensions you want
+  // change to the dimensions you want
 
-	PS.GridSize ( GLOBALS.boardWidth, GLOBALS.boardHeight + 1 ); 
-	PS.GridBGColor(PS.COLOR_WHITE);
-	
-	initializeRandomBoard();
+  PS.GridSize ( GLOBALS.boardWidth, GLOBALS.boardHeight + 1 ); 
+  PS.GridBGColor(PS.COLOR_WHITE);
+  
+  initializeRandomBoard();
 
     // Put any other init code here
 };
@@ -62,64 +63,64 @@ PS.Init = function ()
 
 PS.Click = function (x, y, data)
 {
-	"use strict";
-	
-	if (data != 0)
-	{
-		if (PS.BeadColor(x,y) == PS.COLOR_BLACK)
-		{
-			//Next turn
+  "use strict";
+  
+  if (data != 0)
+  {
+    if (PS.BeadColor(x,y) == PS.COLOR_BLACK)
+    {
+      //Next turn
 
       notice('NEXT TURN');
       nextTurn();
-		}
-		
-		var strength = data.power;
-		if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) && y != GLOBALS.boardHeight )
-		{
-			if (strength > 1)
-			{
-				//Deselect current
-				if (GLOBALS.select != null)
-				{
-					PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
-					PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
-				}
-				
-				//Select
-				GLOBALS.select = {x:x,y:y};
-				PS.BeadBorderWidth(x,y,2);
-				PS.BeadBorderColor(x,y,PS.COLOR_WHITE);
-			}
-		}
-		else
-		{
-			//Enemy square
-			if (GLOBALS.select != null)
-			{
-				if (GLOBALS.select.x == x)
-				{
-					if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
-					{
-						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
-						PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
-						PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
-						GLOBALS.select = null;
-					}
-				}
-				else if (GLOBALS.select.y == y)
-				{
-					if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
-					{
-						makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
-						PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
-						PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
-						GLOBALS.select = null;
-					}
-				}
-			}
-		}
-	}	
+    }
+    
+    var strength = data.power;
+    if (GLOBALS.teamColors[GLOBALS.currentPlayer] == PS.BeadColor(x,y) && y != GLOBALS.boardHeight )
+    {
+      if (strength > 1)
+      {
+        //Deselect current
+        if (GLOBALS.select != null)
+        {
+          PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+          PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+        }
+        
+        //Select
+        GLOBALS.select = {x:x,y:y};
+        PS.BeadBorderWidth(x,y,2);
+        PS.BeadBorderColor(x,y,PS.COLOR_WHITE);
+      }
+    }
+    else
+    {
+      //Enemy square
+      if (GLOBALS.select != null)
+      {
+        if (GLOBALS.select.x == x)
+        {
+          if (GLOBALS.select.y == y + 1 || GLOBALS.select.y == y - 1)
+          {
+            makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
+            PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+            PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+            GLOBALS.select = null;
+          }
+        }
+        else if (GLOBALS.select.y == y)
+        {
+          if (GLOBALS.select.x == x + 1 || GLOBALS.select.x == x - 1)
+          {
+            makeAttack(GLOBALS.select.x,GLOBALS.select.y,x,y);
+            PS.BeadBorderWidth(GLOBALS.select.x,GLOBALS.select.y,1);
+            PS.BeadBorderColor(GLOBALS.select.x,GLOBALS.select.y,PS.COLOR_GRAY);
+            GLOBALS.select = null;
+          }
+        }
+      }
+    }
+  }  
 };
 
 // PS.Release (x, y, data)
@@ -131,9 +132,9 @@ PS.Click = function (x, y, data)
 
 PS.Release = function (x, y, data)
 {
-	"use strict";
+  "use strict";
 
-	// Put code here for when the mouse button is released over a bead	
+  // Put code here for when the mouse button is released over a bead  
 };
 
 // PS.Enter (x, y, button, data)
@@ -145,9 +146,9 @@ PS.Release = function (x, y, data)
 
 PS.Enter = function (x, y, data)
 {
-	"use strict";
+  "use strict";
 
-	// Put code here for when the mouse enters a bead	
+  // Put code here for when the mouse enters a bead  
 };
 
 // PS.Leave (x, y, data)
@@ -159,9 +160,9 @@ PS.Enter = function (x, y, data)
 
 PS.Leave = function (x, y, data)
 {
-	"use strict";
+  "use strict";
 
-	// Put code here for when the mouse leaves a bead	
+  // Put code here for when the mouse leaves a bead  
 };
 
 // PS.KeyDown (key, shift, ctrl)
@@ -175,9 +176,9 @@ PS.Leave = function (x, y, data)
 
 PS.KeyDown = function (key, shift, ctrl)
 {
-	"use strict";
+  "use strict";
 
-	// Put code here for when a key is pressed	
+  // Put code here for when a key is pressed  
 };
 
 // PS.KeyUp (key, shift, ctrl)
@@ -191,9 +192,9 @@ PS.KeyDown = function (key, shift, ctrl)
 
 PS.KeyUp = function (key, shift, ctrl)
 {
-	"use strict";
-	
-	// Put code here for when a key is released	
+  "use strict";
+  
+  // Put code here for when a key is released  
 };
 
 // PS.Wheel (dir)
@@ -203,9 +204,9 @@ PS.KeyUp = function (key, shift, ctrl)
 
 PS.Wheel = function (dir)
 {
-	"use strict";
+  "use strict";
 
-	// Put code here for when mouse wheel is moved
+  // Put code here for when mouse wheel is moved
 };
 
 // PS.Tick ()
@@ -215,9 +216,9 @@ PS.Wheel = function (dir)
 
 PS.Tick = function ()
 {
-	"use strict";
+  "use strict";
 
-	// Put code here to handle clock ticks
+  // Put code here to handle clock ticks
 };
 
 function makeAttack(att_x, att_y, def_x, def_y) {
@@ -228,19 +229,19 @@ function makeAttack(att_x, att_y, def_x, def_y) {
 }
 
 function nextTurn(no_reinforce) {
-	var lastTurnPlayer = GLOBALS.currentPlayer++;
+  var lastTurnPlayer = GLOBALS.currentPlayer++;
 
-	if (GLOBALS.currentPlayer > 3) {
-		GLOBALS.currentPlayer = 0;
-	}
+  if (GLOBALS.currentPlayer > 3) {
+    GLOBALS.currentPlayer = 0;
+  }
 
-	if (GLOBALS.select != null) {
-		PS.BeadBorderWidth(GLOBALS.select.x, GLOBALS.select.y, 1);
-		PS.BeadBorderColor(GLOBALS.select.x, GLOBALS.select.y, PS.COLOR_GRAY);
-		GLOBALS.select = null;
-	}
+  if (GLOBALS.select != null) {
+    PS.BeadBorderWidth(GLOBALS.select.x, GLOBALS.select.y, 1);
+    PS.BeadBorderColor(GLOBALS.select.x, GLOBALS.select.y, PS.COLOR_GRAY);
+    GLOBALS.select = null;
+  }
 
-	PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]); 
+  PS.BeadColor(0,GLOBALS.boardHeight,GLOBALS.teamColors[GLOBALS.currentPlayer]); 
 
   if (gameboard.getPlayerTiles(GLOBALS.PLAYERS_ORDERED[GLOBALS.currentPlayer]).length == 0) {
     nextTurn(true);
@@ -253,7 +254,7 @@ function nextTurn(no_reinforce) {
 
 function giveReinforcements(player) {
   var zones = gameboard.getPlayerTiles(player);
-  var forces_to_add = zones.length;
+  var forces_to_add = (zones.length / 2) + 1;
   var forces_left_to_add = forces_to_add;
 
   debug('Player ' + player + ' gets ' + forces_to_add + ' moar forces');
@@ -261,13 +262,22 @@ function giveReinforcements(player) {
   debug('forces_left_to_add ' + forces_left_to_add);
 
   while(forces_left_to_add > 0) {
-    var num_to_add = Math.min(forces_left_to_add, Math.ceil((Math.random() * forces_left_to_add)));
+    var zone_to_reinforce = _.filter(zones, function (zone) { return zone.power < GLOBALS.MAX_ZONE_POWER }).randomElement();
 
-    debug('Adding ' + num_to_add + ' forces to ___');
+    // If we're totally out of zones to reinforce, just cancel out
+    if (typeof zone_to_reinforce == 'undefined') {
+      return;
+    }
+
+    debug('Zone to reinforce ' + zone_to_reinforce.quickview());
+
+    debug(GLOBALS.MAX_ZONE_POWER - zone_to_reinforce.power);
+
+    var num_to_add = Math.ceil((Math.random() * Math.min(GLOBALS.MAX_ZONE_POWER - zone_to_reinforce.power, forces_left_to_add)));
+
+    debug('Adding ' + num_to_add + ' forces to ' + zone_to_reinforce.quickview());
 
     forces_left_to_add -= num_to_add;
-
-    var zone_to_reinforce = zones.randomElement();
 
     zone_to_reinforce.power += num_to_add;
     zone_to_reinforce.updateView();
