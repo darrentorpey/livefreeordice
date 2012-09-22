@@ -2,7 +2,6 @@ Array.prototype.randomElement = function () {
     return this[Math.floor(Math.random() * this.length)]
 }
 
-
 PLAYERS = {
   NIL:    '',
   BLUE:   'Blue',
@@ -10,6 +9,14 @@ PLAYERS = {
   YELLOW: 'Yellow',
   GREEN:  'Green'
 }
+
+PLAYER_IDs = {}
+PLAYER_IDs[PLAYERS.BLUE] = 0
+PLAYER_IDs[PLAYERS.RED] = 1
+PLAYER_IDs[PLAYERS.YELLOW] = 2
+PLAYER_IDs[PLAYERS.GREEN] = 3
+
+var theTeamColors = [PS.COLOR_RED, PS.COLOR_BLUE, PS.COLOR_GREEN, PS.COLOR_VIOLET];
 
 /*
  * =====================
@@ -72,6 +79,18 @@ var Zone = Klass.extend({
     this.owner = attacker.owner;
     this.power = attacker.power - 1;
     attacker.power = 1;
+    this.updateView();
+  },
+
+  updateView: function() {
+		PS.BeadColor(this.x, this.y, theTeamColors[this.teamColorIndex()]);
+		PS.BeadGlyphColor(this.x, this.y, PS.COLOR_BLACK);
+    var unitStrengthStrings = ['1','1','2','3'];
+		PS.BeadGlyph(this.x, this.y, unitStrengthStrings[this.power]);
+  },
+
+  teamColorIndex: function() {
+    return PLAYER_IDs[this.owner];
   },
 
   rollUp: function() {
