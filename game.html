@@ -19,18 +19,46 @@ along with Perlenspiel. If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Perlenspiel 2.1</title>
+	<title>Live Free or Dice!</title>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />		
 	<meta name="description" content="Perlenspiel 2.1" />
   <!-- <meta name="viewport" content="width=device-width; initial-scale=1.0" /> -->
 	<link rel="stylesheet" href="css/perlenspiel.css" type="text/css">
 	<script type="text/javascript" src="js/perlenspiel.js"></script>
+  <style type="text/css" media="screen">
+    h1 {
+      text-align: center;
+      font-size: 18px;
+      font-family: Arial;
+      margin: 10px 0px;
+    }
+
+    .bottom_text {
+      text-align: center;
+      font-family: Arial;
+      margin: 10px 0px;
+      font-size: 14px;
+    }
+
+    .bottom_text.smaller {
+      font-size: 12px;
+    }
+
+    canvas {
+/*      margin-top: 10px;*/
+    }
+  </style>
 </head>
 <body onload="PS.Sys();" onkeydown="return PS.SysKeyDown(event);" onkeyup="return PS.SysKeyUp(event);">
   <div id="main">
-    <input id="status" name="status" type="text" class="noselect" readonly value="Perlenspiel"/>
+    <h1>Live Free or Dice!</h1>
+
+    <!-- <input id="status" name="status" type="text" class="noselect" readonly value="Perlenspiel"/> -->
     <canvas id="screen" name="screen" width=480 height=480 class="noselect">No HTML5 canvas!</canvas>
+    <p class="bottom_text">Built by Greg Kinneman and Darren Torpey</p>
+    <p class="bottom_text smaller">Using the Perlenspiel game engine, by Brian Moriarty</p>
+    <p class="bottom_text smaller">At the BostonFIG 2012 Adobe Game Jam</p>
     <p id="footer" name="footer">V</p>
   </div>
 
